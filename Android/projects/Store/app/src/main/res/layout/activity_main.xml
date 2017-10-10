@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/iv"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/margin_50dp"
@@ -34,7 +34,8 @@
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textAlignment="center"
-            android:textColorHint="#fff" />
+            android:textColorHint="#fff"
+            android:textSize="@dimen/text_size_24"/>
 
         <EditText
             android:id="@+id/password_et"
@@ -45,7 +46,8 @@
             android:hint="@string/password"
             android:inputType="textPassword"
             android:textAlignment="center"
-            android:textColorHint="#fff" />
+            android:textColorHint="#fff"
+            android:textSize="@dimen/text_size_24"/>
     </LinearLayout>
 
     <Button
@@ -55,8 +57,9 @@
         android:layout_below="@+id/linear"
         android:layout_centerHorizontal="true"
         android:text="@string/login"
-        android:background="#000"
-        android:textColor="#fff"/>
+        android:background="@drawable/shape"
+        android:textColor="#fff"
+        android:layout_margin="@dimen/margin_4"/>
 
     <Button
         android:id="@+id/register_btn"
@@ -65,8 +68,9 @@
         android:layout_below="@id/login_btn"
         android:layout_centerHorizontal="true"
         android:text="@string/register"
-        android:background="#000"
-        android:textColor="#fff"/>
+        android:background="@drawable/shape"
+        android:textColor="#fff"
+        android:layout_margin="@dimen/margin_4"/>
 
     <TextView
         android:layout_width="wrap_content"
