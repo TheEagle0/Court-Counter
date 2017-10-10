@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000"
     android:orientation="vertical"
-    tools:context="com.example.theeagle.store.MainActivity"
-    android:background="#000">
+    tools:context="com.example.theeagle.store.MainActivity">
 
     <ImageView
         android:id="@+id/iv"
@@ -13,10 +13,10 @@
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/image"
-        android:src="@drawable/ic_logo_black"
         android:layout_marginTop="@dimen/margin_50dp"
-        android:scaleType="centerCrop"/>
+        android:contentDescription="@string/image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_logo_black" />
 
     <LinearLayout
         android:id="@+id/linear"
@@ -29,19 +29,23 @@
             android:id="@+id/email_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:background="@drawable/shape"
-            android:layout_margin="@dimen/margin_4"/>
+            android:textAlignment="center"
+            android:textColorHint="#fff" />
 
         <EditText
             android:id="@+id/password_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:background="@drawable/shape"
-            android:layout_margin="@dimen/margin_4"/>
+            android:textAlignment="center"
+            android:textColorHint="#fff" />
     </LinearLayout>
 
     <Button
@@ -50,7 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/linear"
         android:layout_centerHorizontal="true"
-        android:text="@string/login" />
+        android:text="@string/login"
+        android:background="#000"
+        android:textColor="#fff"/>
 
     <Button
         android:id="@+id/register_btn"
@@ -58,16 +64,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/login_btn"
         android:layout_centerHorizontal="true"
-        android:text="@string/register" />
+        android:text="@string/register"
+        android:background="#000"
+        android:textColor="#fff"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/register_btn"
         android:layout_centerHorizontal="true"
-        android:text="@string/forget_password"
-        android:textColor="#fff"
         android:clickable="true"
-        android:focusable="true"/>
+        android:focusable="true"
+        android:text="@string/forget_password"
+        android:textColor="#fff" />
 
 </RelativeLayout>
