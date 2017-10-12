@@ -36,7 +36,8 @@
             android:textAlignment="center"
             android:textColorHint="#fff"
             android:textSize="@dimen/text_size_24"
-            android:padding="@dimen/margin_8"/>
+            android:padding="@dimen/margin_8"
+            android:textColor="#fff"/>
 
         <EditText
             android:id="@+id/password_et"
@@ -49,7 +50,8 @@
             android:textAlignment="center"
             android:textColorHint="#fff"
             android:textSize="@dimen/text_size_24"
-            android:padding="@dimen/margin_8"/>
+            android:padding="@dimen/margin_8"
+            android:textColor="#fff"/>
     </LinearLayout>
 
     <Button
