@@ -1,9 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.theeagle.store.RegisterActivity">
+    android:background="#000"
+    android:orientation="vertical"
+    tools:context="com.example.theeagle.store.MainActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_40dp"
+        android:contentDescription="@string/image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_logo_black" />
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8"
+            android:background="@drawable/shape"
+            android:hint="@string/name"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center"
+            android:textColorHint="#fff"
+            android:textSize="@dimen/text_size_24"
+            android:padding="@dimen/margin_8"
+            android:textColor="#fff"/>
+
+        <EditText
+            android:id="@+id/address_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape"
+            android:hint="@string/address"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textColorHint="#fff"
+            android:textSize="@dimen/text_size_24"
+            android:padding="@dimen/margin_8"
+            android:textColor="#fff"/>
+        <EditText
+            android:id="@+id/email_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center"
+            android:textColorHint="#fff"
+            android:textSize="@dimen/text_size_24"
+            android:padding="@dimen/margin_8"
+            android:textColor="#fff"/>
+        <EditText
+            android:id="@+id/password_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_4"
+            android:background="@drawable/shape"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            android:textColorHint="#fff"
+            android:textSize="@dimen/text_size_24"
+            android:padding="@dimen/margin_8"
+            android:textColor="#fff"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear"
+        android:layout_centerHorizontal="true"
+        android:text="@string/register"
+        android:background="@drawable/shape"
+        android:textColor="#fff"
+        android:layout_margin="@dimen/margin_8"
+        android:paddingRight="@dimen/margin_50dp"
+        android:paddingLeft="@dimen/margin_50dp"/>
+
+</RelativeLayout>
