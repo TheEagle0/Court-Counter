@@ -29,13 +29,14 @@
             android:id="@+id/email_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_4"
+            android:layout_margin="@dimen/margin_8"
             android:background="@drawable/shape"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:textAlignment="center"
             android:textColorHint="#fff"
-            android:textSize="@dimen/text_size_24"/>
+            android:textSize="@dimen/text_size_24"
+            android:padding="@dimen/margin_8"/>
 
         <EditText
             android:id="@+id/password_et"
@@ -47,7 +48,8 @@
             android:inputType="textPassword"
             android:textAlignment="center"
             android:textColorHint="#fff"
-            android:textSize="@dimen/text_size_24"/>
+            android:textSize="@dimen/text_size_24"
+            android:padding="@dimen/margin_8"/>
     </LinearLayout>
 
     <Button
@@ -59,7 +61,9 @@
         android:text="@string/login"
         android:background="@drawable/shape"
         android:textColor="#fff"
-        android:layout_margin="@dimen/margin_4"/>
+        android:layout_margin="@dimen/margin_8"
+        android:paddingRight="@dimen/margin_50dp"
+        android:paddingLeft="@dimen/margin_50dp"/>
 
     <Button
         android:id="@+id/register_btn"
@@ -70,7 +74,8 @@
         android:text="@string/register"
         android:background="@drawable/shape"
         android:textColor="#fff"
-        android:layout_margin="@dimen/margin_4"/>
+        android:layout_margin="@dimen/margin_8"
+       />
 
     <TextView
         android:layout_width="wrap_content"
@@ -80,6 +85,7 @@
         android:clickable="true"
         android:focusable="true"
         android:text="@string/forget_password"
-        android:textColor="#fff" />
+        android:textColor="#fff"
+        android:layout_margin="@dimen/margin_8"/>
 
 </RelativeLayout>
