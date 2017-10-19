@@ -46,7 +46,6 @@
             android:layout_margin="@dimen/margin_4"
             android:background="@drawable/shape"
             android:hint="@string/address"
-            android:inputType="textPassword"
             android:textAlignment="center"
             android:textColorHint="#fff"
             android:textSize="@dimen/text_size_24"
@@ -81,7 +80,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/login_btn"
+        android:id="@+id/register_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/linear"

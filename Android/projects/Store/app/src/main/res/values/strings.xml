@@ -8,4 +8,15 @@
     <string name="image">Image</string>
     <string name="name">Name</string>
     <string name="address">Address</string>
+    <string name="email_already_exist">Email already exites</string>
+    <string name="error_in_connection">Error in connection</string>
+    <string name="logout">Logout</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
