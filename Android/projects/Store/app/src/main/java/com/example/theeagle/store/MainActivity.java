@@ -11,11 +11,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkFirebase();
+        checkFireBase();
 
     }
 
-    public void checkFirebase() {
+    public void checkFireBase() {
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
 
             Intent intent = new Intent(MainActivity.this, LogIn.class);

@@ -25,7 +25,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.example.android.fileprovider"
+            android:authorities="com.example.theeagle.store"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -34,7 +34,8 @@
         </provider>
 
         <activity android:name=".LogIn" />
-        <activity android:name=".MyBooks" />
+        <activity android:name=".MyBooks"
+            android:theme="@style/AppTheme2"/>
     </application>
 
 </manifest>

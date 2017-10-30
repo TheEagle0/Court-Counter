@@ -88,9 +88,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         String password = password_et.getText().toString();
         if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             email_et.setError("Please enter a valid email");
+            return;
         }
         if (password.isEmpty() || password.length() < 6) {
             password_et.setError("Please enter a password contains at least 6 characters");
+            return;
         }
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -102,6 +104,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                         }
                     }
                 });
+
     }
 
 

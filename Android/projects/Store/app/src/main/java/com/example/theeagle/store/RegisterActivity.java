@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -94,35 +95,35 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
         if (requestCode == GALLERY_REQUEST && resultCode == RESULT_OK) {
             selectedImageUri = data.getData();
             readFileFromSelectedURI();
-//        } else {
+        } else {
 //            dispatchTakePictureIntent();
-//            Intent CaptureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//            if (CaptureImage.resolveActivity(getPackageManager()) != null) {
-//                File photoFile = null;
-//                try {
-//                    photoFile = createImageFile();
-//                } catch (IOException ex) {
-//                    ex.printStackTrace();
-//                }
-//                if (photoFile != null) {
-//                    Uri photoURI = FileProvider.getUriForFile(RegisterActivity.this, "com.example.theeagle.store.Fileprovider", photoFile);
-//                    CaptureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-//                    startActivityForResult(CaptureImage, Request_Image_capture);
-//                }
+            Intent CaptureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            if (CaptureImage.resolveActivity(getPackageManager()) != null) {
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                if (photoFile != null) {
+                    Uri photoURI = FileProvider.getUriForFile(RegisterActivity.this,
+                            "com.example.theeagle.store.Fileprovider", photoFile);
+                    CaptureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    startActivityForResult(CaptureImage, Request_Image_capture);
+                }
+
+
+            Bundle extras = data.getExtras();
+            Bitmap image_bitmap = null;
+            if (extras != null) {
+                image_bitmap = (Bitmap) extras.get("data");
+            }
+            imageView.setImageBitmap(image_bitmap);
 //
-//
-//            Bundle extras = data.getExtras();
-//            Bitmap image_bitmap = null;
-//            if (extras != null) {
-//                image_bitmap = (Bitmap) extras.get("data");
-//            }
-//            imageView.setImageBitmap(image_bitmap);
-////
-//        }
+        }
     }
     }
 
@@ -151,6 +152,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Intent intent = new Intent(Intent.ACTION_PICK);
                             intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, GALLERY_REQUEST);
+                        }else {
+                            dispatchTakePictureIntent();
                         }
                     }
                 }).show();
