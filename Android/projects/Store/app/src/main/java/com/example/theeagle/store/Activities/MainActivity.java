@@ -1,4 +1,4 @@
-package com.example.theeagle.store;
+package com.example.theeagle.store.Activities;
 
 
 import android.content.Intent;

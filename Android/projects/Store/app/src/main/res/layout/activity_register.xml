@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#000"
     android:orientation="vertical"
-    tools:context="com.example.theeagle.store.MainActivity">
+    tools:context="com.example.theeagle.store.Activities.MainActivity">
 
     <ImageView
         android:id="@+id/iv"

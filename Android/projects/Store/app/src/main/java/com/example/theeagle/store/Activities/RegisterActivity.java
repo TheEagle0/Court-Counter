@@ -1,4 +1,4 @@
-package com.example.theeagle.store;
+package com.example.theeagle.store.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,12 +19,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.theeagle.store.Data.Publisher;
+import com.example.theeagle.store.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -43,37 +54,57 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText Password;
     private EditText Address;
     private EditText User_Email;
-     Button Register;
-   FirebaseAuth.AuthStateListener mAuthListener;
+    private String Name;
+    private String Email;
+    private String User_Address;
+    private String REF_PUBLISHER;
+    private Publisher publisher;
+    Button Register;
+    private StorageReference storageReference;
+    DatabaseReference databaseReference;
+    FirebaseDatabase firebaseDatabase;
+    FirebaseAuth.AuthStateListener mAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         imageView = findViewById(R.id.iv);
         imageView.setOnClickListener(this);
-        Register=findViewById(R.id.register_btn);
+
+        Register = findViewById(R.id.register_btn);
         Register.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
-        UserName=findViewById(R.id.name_et);
-        Password=findViewById(R.id.password_et);
-        User_Email =findViewById(R.id.email_et);
-        Address=findViewById(R.id.address_et);
+        UserName = findViewById(R.id.name_et);
+        Password = findViewById(R.id.password_et);
+        User_Email = findViewById(R.id.email_et);
+        Address = findViewById(R.id.address_et);
+        REF_PUBLISHER = "Publisher";
+        storageReference = FirebaseStorage.getInstance().getReference();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     //Todo Save Author Info & Profile Image
-                    Intent intent=new Intent(RegisterActivity.this,MyBooks.class);
-                    startActivity(intent);
+                    publisher = new Publisher(Name, user.getUid());
+                    publisher.setAddress(User_Address);
+                    publisher.setEmail(Email);
+//                  uploadProfileImage(user.getUid());
+                    addNewUser();
+
                 }
             }
         };
+
     }
+
     @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+
+
     }
 
     @Override
@@ -86,9 +117,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        if (view.getId()==R.id.iv)
-        showAlertDialog();
-        else addUser();
+        if (view.getId() == R.id.iv)
+            showAlertDialog();
+
+        else {
+            addUser();
+        }
     }
 
     @Override
@@ -100,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             readFileFromSelectedURI();
         } else {
 //            dispatchTakePictureIntent();
-            Intent CaptureImage=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Intent CaptureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (CaptureImage.resolveActivity(getPackageManager()) != null) {
                 File photoFile = null;
                 try {
@@ -110,21 +144,21 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
                 if (photoFile != null) {
                     Uri photoURI = FileProvider.getUriForFile(RegisterActivity.this,
-                            "com.example.theeagle.store.Fileprovider", photoFile);
+                            "com.example.theeagle.store.FileProvider", photoFile);
                     CaptureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                     startActivityForResult(CaptureImage, Request_Image_capture);
                 }
 
 
-            Bundle extras = data.getExtras();
-            Bitmap image_bitmap = null;
-            if (extras != null) {
-                image_bitmap = (Bitmap) extras.get("data");
-            }
-            imageView.setImageBitmap(image_bitmap);
+                Bundle extras = data.getExtras();
+                Bitmap image_bitmap = null;
+                if (extras != null) {
+                    image_bitmap = (Bitmap) extras.get("data");
+                }
+                imageView.setImageBitmap(image_bitmap);
 //
+            }
         }
-    }
     }
 
     private void readFileFromSelectedURI() {
@@ -137,7 +171,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Bitmap image = BitmapFactory.decodeFile(imagePath);
                 imageView.setImageBitmap(image);
             }
-        }else {
+        } else {
             setPic();
         }
     }
@@ -152,7 +186,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             Intent intent = new Intent(Intent.ACTION_PICK);
                             intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(intent, GALLERY_REQUEST);
-                        }else {
+                        } else {
                             dispatchTakePictureIntent();
                         }
                     }
@@ -195,11 +229,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
-        Bitmap bitmap=BitmapFactory.decodeFile(mCurrentPhotoPath,bmOptions);
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         imageView.setImageBitmap(bitmap);
 
 
     }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -211,41 +246,78 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mCurrentPhotoPath = savedInstanceState.getString("Path");
-       file = (File) savedInstanceState.getSerializable("File");
+        file = (File) savedInstanceState.getSerializable("File");
     }
-    public void addUser(){
-        String Name=UserName.getText().toString();
-        String Email=User_Email.getText().toString();
-        String User_Password=Password.getText().toString();
-        String User_Address=Address.getText().toString();
+
+    public void addUser() {
+        Name = UserName.getText().toString();
+        Email = User_Email.getText().toString();
+        String User_Password = Password.getText().toString();
+        User_Address = Address.getText().toString();
         if (Name.isEmpty())
             UserName.setError("Pleas enter your name");
-        else if (Email.isEmpty()||!Patterns.EMAIL_ADDRESS.matcher(Email).matches())
+        else if (Email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(Email).matches())
             User_Email.setError("Please enter a valid email");
-        else if (User_Password.isEmpty()||Password.length()<6)
+        else if (User_Password.isEmpty() || Password.length() < 6)
             Password.setError("Please enter at least 6 characters");
         else if (User_Address.isEmpty())
             Address.setError("Please enter your address");
-        else{
-        mAuth.createUserWithEmailAndPassword(Email,User_Password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (!task.isSuccessful()){
-                            if (task.getException()instanceof FirebaseAuthUserCollisionException)
-                                Toast.makeText(RegisterActivity.this, R.string.email_already_exist, Toast.LENGTH_SHORT).show();
-                            else
-                                Toast.makeText(RegisterActivity.this, R.string.error_in_connection, Toast.LENGTH_SHORT).show();
+        else {
+            mAuth.createUserWithEmailAndPassword(Email, User_Password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (!task.isSuccessful()) {
+                                if (task.getException() instanceof FirebaseAuthUserCollisionException)
+                                    Toast.makeText(RegisterActivity.this, R.string.email_already_exist, Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(RegisterActivity.this, R.string.error_in_connection, Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
         }
 
+
     }
+
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(this,LogIn.class));
+        startActivity(new Intent(this, LogIn.class));
     }
+
+    private void addNewUser() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference(REF_PUBLISHER);
+        databaseReference.child(publisher.getId()).setValue(publisher).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                startActivity(new Intent(RegisterActivity.this, MyBooks.class));
+            }
+        });
+    }
+
+    private void uploadProfileImage(String id) {
+        Uri photoUri = FileProvider.getUriForFile(RegisterActivity.this,
+                "com.example.theeagle.store.FileProvider", file);
+        StorageReference profileImage = storageReference.child("Profile_Image/" + id + ".jpg");
+        profileImage.putFile(photoUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                String imageUrl = taskSnapshot.getDownloadUrl().toString();
+                publisher.setImageUrl(imageUrl);
+                addNewUser();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                publisher.setImageUrl(null);
+                addNewUser();
+            }
+        });
+
+    }
+
 }
+

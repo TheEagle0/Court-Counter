@@ -18,6 +18,15 @@
         android:text="@string/app_name"
         android:padding="@dimen/margin_4"
         android:textColor="#fff"
-        android:layout_marginStart="@dimen/padding_45"/>
+        android:layout_marginStart="@dimen/padding_45"
+        android:id="@+id/tv_name"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:padding="@dimen/margin_4"
+        android:textColor="#fff"
+        android:layout_marginStart="@dimen/padding_45"
+        android:id="@+id/tv_email"/>
 
 </LinearLayout>
