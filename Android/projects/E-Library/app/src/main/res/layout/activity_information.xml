@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000"
-    tools:context="com.example.theeagle.e_library.LoginActivity">
+    tools:context="com.example.theeagle.e_library.activities.LoginActivity">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dimen_16"
             android:background="@drawable/shape"
-            android:text="@string/add"
+            android:text="@string/gender"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="@dimen/dimen_24sp"
