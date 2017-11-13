@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.theeagle.e_library.InformationActivity">
+    android:background="#000"
+    tools:context="com.example.theeagle.e_library.LoginActivity">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/information_iv"
+        android:contentDescription="@string/image_view"
+        android:src="@drawable/ic_1009_200"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/dimen_34dp"/>
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/name_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dimen_16"
+            android:background="@drawable/shape"
+            android:hint="@string/name"
+            android:inputType="textEmailAddress"
+            android:padding="@dimen/dimen_8dp"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/address_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_16"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:background="@drawable/shape"
+            android:hint="@string/address"
+            android:padding="@dimen/dimen_8dp"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="24sp" />
+        <EditText
+            android:id="@+id/birth_date_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_16"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:background="@drawable/shape"
+            android:hint="@string/birth_date"
+            android:inputType="date"
+            android:padding="@dimen/dimen_8dp"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="24sp"
+            android:layout_marginTop="@dimen/dimen_16"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/dimen_16"
+        android:background="@drawable/shape"
+        android:text="@string/add"
+        android:textAllCaps="false"
+        android:textColor="#fff" />
+
+</RelativeLayout>
+

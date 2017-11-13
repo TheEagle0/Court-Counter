@@ -11,4 +11,8 @@
     <string name="login">LogIn</string>
     <string name="register">Register</string>
     <string name="image_view">ImageView</string>
+    <string name="add">Add</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="birth_date">Birth Date</string>
 </resources>
