@@ -104,10 +104,7 @@ public class InformationActivity extends AppCompatActivity implements View.OnCli
             name_et.setError("Please enter your name");
         else if (address.isEmpty())
             address_et.setError("Please enter your address");
-        else if (birthDate.equals( R.string.birth_date))
-            Toast.makeText(this, "Please select your birth date", Toast.LENGTH_SHORT).show();
-        else if (gender.equals(R.string.gender))
-            Toast.makeText(this, "Please select your gender", Toast.LENGTH_SHORT).show();
+
             else {
             user = new User(name, address, birthDate, gender);
             user.setName(name);
