@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -20,19 +19,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
-
 import com.example.theeagle.store.Data.Book;
 import com.example.theeagle.store.R;
 import com.example.theeagle.store.Utilities.DatePickerFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Calendar;
@@ -45,23 +39,19 @@ public class AddBook extends AppCompatActivity implements View.OnClickListener,D
     private int PICK_FILE_REQUEST_CODE = 2;
     private Uri selectedImageUri;
     private Uri pdfFileUri;
-    private StorageReference storageReference;
-    DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase;
-    FirebaseAuth.AuthStateListener mAuthListener;
     public String BOOK_PDF_FOLDER = "Book_Pdf/";
     private Book book;
     public String REF_BOOK = "Book";
-
-
-    @Override
+ private String bookId;
+private String id;
+@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
         initViews();
         firebaseDatabase=FirebaseDatabase.getInstance();
-
-
+id=FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     private void initViews() {
@@ -153,7 +143,7 @@ public class AddBook extends AppCompatActivity implements View.OnClickListener,D
         }
     }
     private void uploadPdfFile(Uri pdfFileUri){
-        FirebaseStorage.getInstance().getReference().child(BOOK_PDF_FOLDER).putFile(pdfFileUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        FirebaseStorage.getInstance().getReference().child(BOOK_PDF_FOLDER+id+".pdf").putFile(pdfFileUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()){
@@ -173,7 +163,7 @@ public class AddBook extends AppCompatActivity implements View.OnClickListener,D
         double price=Double.parseDouble(price_et.getText().toString());
         String Date=set_date.getText().toString();
         String PublisherId=FirebaseAuth.getInstance().getUid();
-        String bookId=FirebaseDatabase.getInstance().getReference(REF_BOOK).push().getKey();
+        bookId=FirebaseDatabase.getInstance().getReference(REF_BOOK).push().getKey();
         book=new Book(bookId,Name,price,PublisherId,Description);
         book.setDescription(Description);
         book.setId(bookId);

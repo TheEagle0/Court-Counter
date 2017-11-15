@@ -47,21 +47,21 @@
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:textSize="24sp" />
-        <EditText
+        <Button
             android:id="@+id/birth_date_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_16"
             android:layout_marginStart="@dimen/dimen_16"
             android:background="@drawable/shape"
-            android:hint="@string/birth_date"
-            android:inputType="date"
+            android:text="@string/birth_date"
             android:padding="@dimen/dimen_8dp"
             android:textAlignment="center"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:textSize="24sp"
-            android:layout_marginTop="@dimen/dimen_16"/>
+            android:layout_marginTop="@dimen/dimen_16"
+            android:textAllCaps="false"/>
         <Button
             android:id="@+id/gender_btn"
             android:layout_width="match_parent"

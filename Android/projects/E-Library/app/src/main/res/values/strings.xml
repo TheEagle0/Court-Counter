@@ -21,4 +21,8 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="gender">Gender</string>
+    <string name="authentication">Authentication</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="home">Home</string>
+    <string name="logout">Logout</string>
 </resources>

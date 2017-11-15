@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,4 +8,4 @@
     tools:context="com.example.theeagle.e_library.activities.MyBooksActivity"
     tools:showIn="@layout/app_bar_my_books">
 
-</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.RecyclerView>
