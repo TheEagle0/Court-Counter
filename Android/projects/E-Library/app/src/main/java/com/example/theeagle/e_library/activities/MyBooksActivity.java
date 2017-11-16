@@ -3,16 +3,15 @@ package com.example.theeagle.e_library.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -20,6 +19,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.theeagle.e_library.R;
+import com.example.theeagle.e_library.adapter.Adapter;
+import com.example.theeagle.e_library.data.Book;
 import com.example.theeagle.e_library.data.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +29,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class MyBooksActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth firebaseAuth;
@@ -35,25 +39,31 @@ public class MyBooksActivity extends AppCompatActivity
     private FirebaseUser fireUser;
     private User user;
     private String userRef;
-
-     ImageView profile_iv;
-    private TextView name_tv,address_tv;
+    private Book book;
+    ImageView profile_iv;
+    private TextView name_tv, address_tv;
     private NavigationView navigationView;
+    private Adapter adapter;
+   private ArrayList<Book> books = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_books);
-        userRef="User";
+        userRef = "User";
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initFirebase();
-        navigationView=findViewById(R.id.nav_view);
+        book = new Book();
+        navigationView = findViewById(R.id.nav_view);
         initHeaderViews();
         getUserInfo();
-
-
-
+        getBookInfo();
+        recyclerView=findViewById(R.id.books_rv);
+        adapter=new Adapter(this,books);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(adapter);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -65,14 +75,14 @@ public class MyBooksActivity extends AppCompatActivity
     }
 
     private void initHeaderViews() {
-        profile_iv=navigationView.getHeaderView(0).findViewById(R.id.imageView);
-        name_tv=navigationView.getHeaderView(0).findViewById(R.id.header_tv1);
-        address_tv=navigationView.getHeaderView(0).findViewById(R.id.textView);
+        profile_iv = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        name_tv = navigationView.getHeaderView(0).findViewById(R.id.header_tv1);
+        address_tv = navigationView.getHeaderView(0).findViewById(R.id.textView);
     }
 
     private void initFirebase() {
         fireUser = FirebaseAuth.getInstance().getCurrentUser();
-        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     @Override
@@ -114,7 +124,7 @@ public class MyBooksActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_edit) {
-            startActivity(new Intent(this,InformationActivity.class));
+            startActivity(new Intent(this, InformationActivity.class));
             finish();
         } else if (id == R.id.nav_home) {
         } else if (id == R.id.nav_logout) {
@@ -127,27 +137,49 @@ public class MyBooksActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void getUserInfo(){
-        if (fireUser !=null){
+
+    private void getUserInfo() {
+        if (fireUser != null) {
             FirebaseDatabase.getInstance().getReference(userRef).child(fireUser.getUid())
                     .addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    user =dataSnapshot.getValue(User.class);
-                    if (user !=null){
-                        name_tv.setText(user.getName());
-                        address_tv.setText(user.getAddress());
-                        Glide.with(MyBooksActivity.this).load(user.getImageUrl()).into(profile_iv);
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            user = dataSnapshot.getValue(User.class);
+                            if (user != null) {
+                                name_tv.setText(user.getName());
+                                address_tv.setText(user.getAddress());
+                                Glide.with(MyBooksActivity.this).load(user.getImageUrl()).into(profile_iv);
 
-                    }
+                            }
 
-                }
+                        }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
+                        }
+                    });
+        }
+    }
+
+    private void getBookInfo() {
+        if (fireUser != null) {
+            FirebaseDatabase.getInstance().getReferenceFromUrl("https://store-d2c0b.firebaseio.com/Book")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            HashMap<String, Book> books = (HashMap<String, Book>) dataSnapshot.getValue();
+                            MyBooksActivity.this.books.addAll(books.values());
+
+
+                            Log.d("Book", "onDataChange: " + MyBooksActivity.this.books.get(0) + "");
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
         }
     }
 }
