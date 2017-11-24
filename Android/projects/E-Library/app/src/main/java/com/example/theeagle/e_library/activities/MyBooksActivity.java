@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -24,18 +23,17 @@ import com.example.theeagle.e_library.data.Book;
 import com.example.theeagle.e_library.data.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MyBooksActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth firebaseAuth;
-    private RecyclerView recyclerView;
     private FirebaseUser fireUser;
     private User user;
     private String userRef;
@@ -44,8 +42,6 @@ public class MyBooksActivity extends AppCompatActivity
     private TextView name_tv, address_tv;
     private NavigationView navigationView;
     private Adapter adapter;
-   private ArrayList<Book> books = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +51,12 @@ public class MyBooksActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         initFirebase();
-        book = new Book();
         navigationView = findViewById(R.id.nav_view);
         initHeaderViews();
         getUserInfo();
         getBookInfo();
-        recyclerView=findViewById(R.id.books_rv);
-        adapter=new Adapter(this,books);
+        RecyclerView recyclerView = findViewById(R.id.books_rv);
+        adapter = new Adapter(new ArrayList<Book>());
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -164,15 +159,29 @@ public class MyBooksActivity extends AppCompatActivity
 
     private void getBookInfo() {
         if (fireUser != null) {
-            FirebaseDatabase.getInstance().getReferenceFromUrl("https://store-d2c0b.firebaseio.com/Book")
-                    .addValueEventListener(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference("Book")
+                    .addChildEventListener(new ChildEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            HashMap<String, Book> books = (HashMap<String, Book>) dataSnapshot.getValue();
-                            MyBooksActivity.this.books.addAll(books.values());
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                            book = dataSnapshot.getValue(Book.class);
+                            if (book != null) {
+                                adapter.addBook(book);
+                            }
+                        }
 
+                        @Override
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                            Log.d("Book", "onDataChange: " + MyBooksActivity.this.books.get(0) + "");
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
                         }
 
                         @Override
@@ -180,6 +189,7 @@ public class MyBooksActivity extends AppCompatActivity
 
                         }
                     });
+
         }
     }
 }

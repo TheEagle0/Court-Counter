@@ -1,0 +1,5 @@
+<application>
+  <component name="ExternalResourceManagerImpl">
+    <resource url="urn:oasis:names:tc:xliff:document:1.2" location="$USER_HOME$/Android/projects/IronLock" />
+  </component>
+</application>

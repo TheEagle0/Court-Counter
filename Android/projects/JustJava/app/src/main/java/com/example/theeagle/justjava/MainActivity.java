@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private int quantity = 0;
     private TextView priceTextView;
     private TextView quantityTextView;
+    private  int price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void increment(View view) {
         quantity++;
-        display(quantity);
+        displayQuantity(quantity);
     }
 
     public void decrement(View view) {
         if (quantity > 0) {
             quantity--;
 
-            display(quantity);
+            displayQuantity(quantity);
         } else
             Toast.makeText(this, "the number couldn't be less than 1", Toast.LENGTH_SHORT).show();
 
@@ -46,13 +47,16 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
 //        displayPrice(quantity * 5);
-        displayMessage("Price is $ " + (quantity * 5) + "\nThank you");
+        calculatePrice(quantity);
+        displayMessage("Price is $ " + price + "\nThank you");
+
     }
 
     /**
      * This method displays the given quantity value on the screen.
      */
-    private void display(int number) {
+    private void displayQuantity(int number) {
+
         quantityTextView.setText("" + number);
     }
 
@@ -71,5 +75,13 @@ public class MainActivity extends AppCompatActivity {
     private void displayMessage(String message) {
 
         priceTextView.setText(message);
+    }
+    /**
+     * Calculates the price of the order.
+     *
+     * @param quantity is the number of cups of coffee ordered
+     */
+    private void calculatePrice(int quantity) {
+         price = quantity * 5;
     }
 }

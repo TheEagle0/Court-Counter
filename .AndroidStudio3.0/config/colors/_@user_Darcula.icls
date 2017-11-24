@@ -1,0 +1,19 @@
+<scheme name="_@user_Darcula" version="142" parent_scheme="Darcula">
+  <option name="FONT_SCALE" value="1.25" />
+  <metaInfo>
+    <property name="created">2017-11-20T16:42:17</property>
+    <property name="ide">AndroidStudio</property>
+    <property name="ideVersion">3.0.0.18</property>
+    <property name="modified">2017-11-20T21:51:08</property>
+    <property name="originalScheme">Darcula</property>
+  </metaInfo>
+  <font>
+    <option name="EDITOR_FONT_NAME" value="Source Code Pro" />
+    <option name="EDITOR_FONT_SIZE" value="15" />
+  </font>
+  <font>
+    <option name="EDITOR_FONT_NAME" value="DialogInput" />
+    <option name="EDITOR_FONT_SIZE" value="15" />
+  </font>
+  <option name="CONSOLE_FONT_NAME" value="Source Code Pro" />
+</scheme>
