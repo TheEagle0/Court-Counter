@@ -17,7 +17,65 @@
         android:inputType="text"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif"
+        android:textStyle="italic|bold"/>
+
+    <TextView
+        android:id="@+id/Qun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/quantity"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+android:layout_gravity="center"
+
+        />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+
+        <Button
+            android:id="@+id/decrement"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:onClick="decrement"
+            android:text="@string/dash"
+            android:textColor="@android:color/black"
+
+            />
+
+        <TextView
+            android:id="@+id/quantity_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="italic|bold"/>
+
+
+        <Button
+            android:id="@+id/increment"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:onClick="increment"
+            android:text="@string/plus"
+            android:textColor="@android:color/black"
+
+            />
+    </LinearLayout>
     <TextView
         android:id="@+id/toppings"
         android:layout_width="wrap_content"
@@ -63,57 +121,7 @@
         android:textColor="@android:color/black"
 
         />
-    <TextView
-        android:id="@+id/Qun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/quantity"
-        android:textAllCaps="true"
-        android:layout_marginTop="8dp"
-android:layout_marginStart="8dp"
-        android:textColor="@android:color/black"
 
-        />
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/decrement"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:onClick="decrement"
-            android:text="@string/dash"
-            android:layout_marginStart="8dp"
-            android:textColor="@android:color/black"
-
-            />
-    <TextView
-        android:id="@+id/quantity_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textColor="@android:color/black"
-        />
-
-
-        <Button
-            android:id="@+id/increment"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:onClick="increment"
-            android:text="@string/plus"
-            android:textColor="@android:color/black"
-
-            />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/pri_text_view"
@@ -147,6 +155,7 @@ android:layout_marginStart="8dp"
         android:text="@string/order"
         android:layout_marginStart="8dp"
         android:textColor="@android:color/black"
+        android:layout_gravity="center"
         />
 
 </LinearLayout>
