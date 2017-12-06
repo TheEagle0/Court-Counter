@@ -1,11 +1,16 @@
 package com.example.theeagle.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URI;
 import java.text.NumberFormat;
 
 /**
@@ -15,7 +20,14 @@ public class MainActivity extends AppCompatActivity {
     private int quantity = 0;
     private TextView priceTextView;
     private TextView quantityTextView;
-    private  int price;
+    private CheckBox checkBox;
+    private CheckBox checkBox2;
+    private int price;
+    private EditText editText;
+    private String name;
+    private String message;
+    boolean hasWhippedCream;
+    boolean hasChocolate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +35,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         priceTextView = findViewById(R.id.price_text_view);
         quantityTextView = findViewById(R.id.quantity_text_view);
-
+        checkBox = findViewById(R.id.checkbox);
+        checkBox2 = findViewById(R.id.checkbox2);
+        editText = findViewById(R.id.edit_text);
     }
 
     public void increment(View view) {
-        quantity++;
+        if (quantity < 100)
+            quantity++;
         displayQuantity(quantity);
     }
 
     public void decrement(View view) {
-        if (quantity > 0) {
+        if (quantity > 1) {
             quantity--;
 
             displayQuantity(quantity);
@@ -48,7 +63,19 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
 //        displayPrice(quantity * 5);
         calculatePrice(quantity);
-        displayMessage("Price is $ " + price + "\nThank you");
+        hasWhippedCream = checkBox.isChecked();
+        hasChocolate = checkBox2.isChecked();
+        name = editText.getText().toString();
+
+        displayMessage();
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT, "just java "+name);
+        intent.putExtra(Intent.EXTRA_TEXT,message);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+        priceTextView.setText("");
 
     }
 
@@ -72,16 +99,30 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the given text on the screen.
      */
-    private void displayMessage(String message) {
+    private void displayMessage() {
 
+        message = "\n"+getString(R.string.hello) + name +"\n"+ getString(R.string.thank_you) + "\n"+getString(R.string.whipped_cream_has) +
+                hasWhippedCream + "\n"+getString(R.string.chocolate_has)
+                + hasChocolate + "\n"+getString(R.string.price_is) + price;
         priceTextView.setText(message);
     }
+
     /**
      * Calculates the price of the order.
      *
      * @param quantity is the number of cups of coffee ordered
      */
     private void calculatePrice(int quantity) {
-         price = quantity * 5;
+        if (checkBox.isChecked() && checkBox2.isChecked()) {
+            price = (quantity * 5) + (quantity * 3);
+
+        } else if (checkBox.isChecked()) {
+            price = (quantity * 5) + (quantity);
+        } else if (checkBox2.isChecked()) {
+            price = (quantity * 5) + (quantity * 2);
+        } else {
+            price = quantity * 5;
+
+        }
     }
 }
