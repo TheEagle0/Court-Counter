@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.theeagle.courtcounter.MainActivity"
+    android:background="@mipmap/americanfootball"
     >
 
 <RelativeLayout
@@ -30,8 +31,10 @@
                 android:layout_margin="@dimen/dimen_16p"
                 android:text="@string/team_a"
                 android:fontFamily="sans-serif-medium"
-                android:textColor=" #616161"
-                android:textSize="14sp" />
+                android:textColor="@color/textColor2"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:background="@color/back"/>
 
             <TextView
                 android:id="@+id/score_tv"
@@ -55,7 +58,8 @@
                 android:layout_marginEnd="@dimen/dimen_24dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
                 android:text="@string/six"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"/>
             <Button
                 android:id="@+id/three"
                 android:layout_width="match_parent"
@@ -65,7 +69,8 @@
                 android:layout_marginEnd="@dimen/dimen_24dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
                 android:text="@string/three"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"/>
 
             <Button
                 android:id="@+id/tackle"
@@ -76,7 +81,8 @@
                 android:layout_marginEnd="@dimen/dimen_24dp"
                 android:layout_marginStart="@dimen/dimen_24dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"/>
 
             <Button
                 android:id="@+id/kick"
@@ -87,7 +93,8 @@
                 android:layout_marginEnd="@dimen/dimen_24dp"
                 android:layout_marginStart="@dimen/dimen_24dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"/>
         </LinearLayout>
 
         <View
@@ -111,8 +118,10 @@
                 android:layout_margin="@dimen/dimen_16p"
                 android:fontFamily="sans-serif-medium"
                 android:text="@string/team_b"
-                android:textColor=" #616161"
-                android:textSize="14sp"
+                android:textColor="@color/textColor2"
+                android:textSize="18sp"
+                android:textStyle="bold|italic"
+                android:background="@color/back"
                 />
 
             <TextView
@@ -137,7 +146,8 @@
                 android:layout_marginStart="@dimen/dimen_24dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
                 android:layout_marginTop="@dimen/dimen_24dp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"/>
             <Button
                 android:id="@+id/three_2"
                 android:layout_width="match_parent"
@@ -148,6 +158,7 @@
                 android:layout_marginStart="@dimen/dimen_24dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
                 android:textAllCaps="false"
+                android:textColor="@color/textColor"
                 />
 
             <Button
@@ -159,7 +170,8 @@
                 android:layout_marginEnd="@dimen/dimen_24dp"
                 android:layout_marginStart="@dimen/dimen_24dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"/>
 
             <Button
                 android:id="@+id/kick_2"
@@ -170,7 +182,8 @@
                 android:layout_marginEnd="@dimen/dimen_24dp"
                 android:layout_marginStart="@dimen/dimen_24dp"
                 android:layout_marginBottom="@dimen/dimen_8dp"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false"
+                android:textColor="@color/textColor"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -183,6 +196,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="@string/reset"
+        android:textColor="@color/textColor"
         />
 </RelativeLayout>
 </ScrollView>
