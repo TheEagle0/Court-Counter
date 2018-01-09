@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.theeagle.courtcounter.MainActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/team_a_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dimen_16p"
+                android:text="@string/team_a"
+                android:fontFamily="sans-serif-medium"
+                android:textColor=" #616161"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/score_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dimen_8dp"
+                android:text="@string/_0"
+                android:textSize="56sp"
+                android:textColor="#000000"
+                android:fontFamily=" sans-serif-light"
+                />
+
+            <Button
+                android:id="@+id/three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginTop="@dimen/dimen_24dp"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+
+                android:text="@string/three" />
+
+            <Button
+                android:id="@+id/two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/two"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_8dp"/>
+
+            <Button
+                android:id="@+id/free_throw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/free_throw"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_8dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_24dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginBottom="@dimen/dimen_24dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/team_b_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dimen_16p"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/team_b"
+                android:textColor=" #616161"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/score_tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/dimen_8dp"
+                android:text="@string/_0"
+                android:textSize="56sp"
+                android:textColor="#000000"
+                android:fontFamily=" sans-serif-light"/>
+
+            <Button
+                android:id="@+id/three_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/three"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:layout_marginTop="@dimen/dimen_24dp"/>
+
+            <Button
+                android:id="@+id/two_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/two"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_8dp"/>
+
+            <Button
+                android:id="@+id/free_throw_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/free_throw"
+                android:layout_marginEnd="@dimen/dimen_24dp"
+                android:layout_marginStart="@dimen/dimen_24dp"
+                android:layout_marginBottom="@dimen/dimen_8dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/reset_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/reset"
+        android:layout_marginBottom="@dimen/dimen_32dp"/>
+
+</RelativeLayout>
