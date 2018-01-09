@@ -1,38 +1,45 @@
 package com.example.theeagle.courtcounter;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private int scoreA;
     private int scoreB;
-    TextView scoreViewA,scoreViewB;
-    Button buttonAdd3A, buttonAdd2A, buttonFreeThrowA, buttonAdd3B, buttonAdd2B, buttonFreeThrowB, rest;
+    TextView scoreViewA, scoreViewB;
+    Button buttonAdd6A, buttonAdd3A, buttonAdd2A, buttonKickA, buttonAdd6B, buttonAdd3B, buttonAdd2B, buttonKickB, rest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initviews();
+
     }
 
     private void initviews() {
+        buttonAdd6A = findViewById(R.id.six);
         buttonAdd3A = findViewById(R.id.three);
-        buttonAdd2A = findViewById(R.id.two);
-        buttonFreeThrowA = findViewById(R.id.free_throw);
+        buttonAdd2A = findViewById(R.id.tackle);
+        buttonKickA = findViewById(R.id.kick);
+        buttonAdd6B = findViewById(R.id.six_2);
         buttonAdd3B = findViewById(R.id.three_2);
-        buttonAdd2B = findViewById(R.id.two_2);
-        buttonFreeThrowB = findViewById(R.id.free_throw_2);
+        buttonAdd2B = findViewById(R.id.tackle_2);
+        buttonKickB = findViewById(R.id.kick_2);
         rest = findViewById(R.id.reset_btn);
+        buttonAdd6A.setOnClickListener(this);
         buttonAdd3A.setOnClickListener(this);
         buttonAdd2A.setOnClickListener(this);
-        buttonFreeThrowA.setOnClickListener(this);
+        buttonKickA.setOnClickListener(this);
+        buttonAdd6B.setOnClickListener(this);
         buttonAdd3B.setOnClickListener(this);
         buttonAdd2B.setOnClickListener(this);
-        buttonFreeThrowB.setOnClickListener(this);
+        buttonKickB.setOnClickListener(this);
         rest.setOnClickListener(this);
     }
 
@@ -45,6 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scoreViewA.setText(String.valueOf(score));
     }
 
+    private void addSixA() {
+        scoreA = scoreA + 6;
+        displayForTeamA(scoreA);
+    }
+
     private void addThreeA() {
         scoreA = scoreA + 3;
         displayForTeamA(scoreA);
@@ -55,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         displayForTeamA(scoreA);
     }
 
-    private void freeThrowA() {
+    private void kickA() {
         scoreA = scoreA + 1;
         displayForTeamA(scoreA);
 
@@ -64,6 +76,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void displayForTeamB(int score2) {
         scoreViewB = findViewById(R.id.score_tv_2);
         scoreViewB.setText(String.valueOf(score2));
+    }
+
+    private void addSixB() {
+        scoreB = scoreB + 6;
+        displayForTeamB(scoreB);
     }
 
     private void addThreeB() {
@@ -76,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         displayForTeamB(scoreB);
     }
 
-    private void freeThrowB() {
+    private void kickB() {
         scoreB = scoreB + 1;
         displayForTeamB(scoreB);
 
@@ -85,23 +102,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.six:
+                addSixA();
+                break;
             case R.id.three:
                 addThreeA();
                 break;
-            case R.id.two:
+            case R.id.tackle:
                 addTwoA();
                 break;
-            case R.id.free_throw:
-                freeThrowA();
+            case R.id.kick:
+                kickA();
+                break;
+            case R.id.six_2:
+                addSixB();
                 break;
             case R.id.three_2:
                 addThreeB();
                 break;
-            case R.id.two_2:
+            case R.id.tackle_2:
                 addTwoB();
                 break;
-            case R.id.free_throw_2:
-                freeThrowB();
+            case R.id.kick_2:
+                kickB();
                 break;
             case R.id.reset_btn:
                 restScore();
@@ -110,9 +133,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void restScore() {
-        scoreA=0;
-        scoreB =0;
+        scoreA = 0;
+        scoreB = 0;
         displayForTeamA(scoreA);
         displayForTeamB(scoreB);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("scoreA", scoreA);
+        outState.putInt("scoreB", scoreB);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        scoreA = savedInstanceState.getInt("scoreA");
+        scoreB = savedInstanceState.getInt("scoreB");
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(this, "haram", Toast.LENGTH_SHORT).show();
+            scoreViewB.setText(scoreB);
+            scoreViewA.setText(scoreA);
+
+        } else {
+            Toast.makeText(this, "haram2", Toast.LENGTH_SHORT).show();
+            scoreViewB.setText(scoreB);
+            scoreViewA.setText(scoreA);
+
+        }
     }
 }
