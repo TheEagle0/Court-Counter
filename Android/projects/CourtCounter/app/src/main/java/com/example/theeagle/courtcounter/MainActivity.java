@@ -1,12 +1,10 @@
 package com.example.theeagle.courtcounter;
 
-import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private int scoreA;
@@ -18,9 +16,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initviews();
 
+
     }
+
+    /**
+     * Initialize the Views
+     */
 
     private void initviews() {
         buttonAdd6A = findViewById(R.id.six);
@@ -32,6 +36,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonAdd2B = findViewById(R.id.tackle_2);
         buttonKickB = findViewById(R.id.kick_2);
         rest = findViewById(R.id.reset_btn);
+        listeners();
+    }
+
+    /**
+     * Adding onClickListeners to the Views
+     */
+
+    private void listeners() {
         buttonAdd6A.setOnClickListener(this);
         buttonAdd3A.setOnClickListener(this);
         buttonAdd2A.setOnClickListener(this);
@@ -52,53 +64,83 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scoreViewA.setText(String.valueOf(score));
     }
 
+    /**
+     * Add six points to the team A
+     */
     private void addSixA() {
         scoreA = scoreA + 6;
         displayForTeamA(scoreA);
     }
 
+    /**
+     * Add three points to the team A
+     */
     private void addThreeA() {
         scoreA = scoreA + 3;
         displayForTeamA(scoreA);
     }
 
+    /**
+     * Add two points to the team A
+     */
     private void addTwoA() {
         scoreA = scoreA + 2;
         displayForTeamA(scoreA);
     }
 
+    /**
+     * Add one point to the team A
+     */
     private void kickA() {
         scoreA = scoreA + 1;
         displayForTeamA(scoreA);
 
     }
 
+    /**
+     * Displays the given score for Team B.
+     */
     public void displayForTeamB(int score2) {
         scoreViewB = findViewById(R.id.score_tv_2);
         scoreViewB.setText(String.valueOf(score2));
     }
 
+    /**
+     * Add six to points the team B
+     */
     private void addSixB() {
         scoreB = scoreB + 6;
         displayForTeamB(scoreB);
     }
 
+    /**
+     * Add three points to the team B
+     */
     private void addThreeB() {
         scoreB = scoreB + 3;
         displayForTeamB(scoreB);
     }
 
+    /**
+     * Add two points to the team B
+     */
     private void addTwoB() {
         scoreB = scoreB + 2;
         displayForTeamB(scoreB);
     }
 
+    /**
+     * Add one point to the team B
+     */
     private void kickB() {
         scoreB = scoreB + 1;
         displayForTeamB(scoreB);
 
     }
 
+    /**
+     * Adding Actions To the Views
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -132,6 +174,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Resetting the Score
+     */
     private void restScore() {
         scoreA = 0;
         scoreB = 0;
@@ -151,21 +196,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onRestoreInstanceState(savedInstanceState);
         scoreA = savedInstanceState.getInt("scoreA");
         scoreB = savedInstanceState.getInt("scoreB");
+
     }
 
+
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Toast.makeText(this, "haram", Toast.LENGTH_SHORT).show();
-            scoreViewB.setText(scoreB);
-            scoreViewA.setText(scoreA);
-
-        } else {
-            Toast.makeText(this, "haram2", Toast.LENGTH_SHORT).show();
-            scoreViewB.setText(scoreB);
-            scoreViewA.setText(scoreA);
-
-        }
+    protected void onResume() {
+        super.onResume();
+        displayForTeamA(scoreA);
+        displayForTeamB(scoreB);
     }
 }
